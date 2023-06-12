@@ -1,0 +1,5 @@
+Name,UI_HTML,Sequence
+None,None,
+rps-1 3' UTR,"<i>rps-1</i> (56 bp, 23% GC)",tcttataatttcattgttatgtcgcattgcgataaatgttaaaattaaaaaacttc
+rps-4 3' UTR,"<i>rps-4</i> (41 bp, 17% GC)",actgttgtttttgttgaaaaataaaattgttaatctaaaaa
+tbb-2 3' UTR,"<i>tbb-2</i> (169 bp, 29% GC)",atgcaaaatcctttcaagcattcccttcttctctatcactcttctttctttttgtcaaaaaattctctcgctaatttatttgcttttttaatgttattattttatgactttttatagtcactgaaaagtttgcatctgagtgaagtgaatgctatcaaaatgtgattct

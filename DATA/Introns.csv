@@ -1,0 +1,5 @@
+Name,UI_HTML,Sequence_1,Sequence_2,Sequence_3
+rps-0,"<i>rps-0</i> (avg. length 55 bp, 15% GC)",gttagtttaaaaaaaattcaattcatttttcttgtgaattatttaataaaattataacaattatcattacag,gtaagacttttctaaatagttgttttttctaattatttaaaatttag,gtatatatttaatttataaaaaatgtaaatatgtatttgaattgtag
+rps-5,"<i>rps-5</i> (avg. length 65 bp, 22% GC)",gtttgtatttcgtatttggttaaaaattgcatttaaaaaatattgataaaaatatttccaaaaagagtaaaacaaaaaattaaattaatttttacag,gtatatcattgattaaatgtagaaattttattttaccacgtttctattcag,gtatattaattttcctggtgattcgtttaatcatttagttctttttag
+rps-20,"<i>rps-20</i> (avg. length 62 bp, 28% GC)",gtgagttttattatcgattttcgggattttctacttgtaattaccttttgtttttaataagttgcttttttccag,gtaggttttcagtttcaatttttgttgcaactacctcaactctatgttttcag,gtaaatttttcaagcttctaaattccaaaataaaccattttaatttcttaattccag
+Fire_lab_introns,"Canonical Fire lab (avg. length 51 bp, 24% GC)",gtaagtttaaacatatatatactaactaaccctgattatttaaattttcag,gtaagtttaaacagttcggtactaactaaccatacatatttaaattttcag,gtaagtttaaacatgattttactaactaactaatctgatttaaattttcag

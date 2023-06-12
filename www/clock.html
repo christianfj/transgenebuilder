@@ -1,0 +1,104 @@
+<script type="text/javascript"> 
+function currentTime() {
+  let date = new Date(); 
+  let hh = date.getHours();
+  let mm = date.getMinutes();
+  let ss = date.getSeconds();
+  let session = "AM";
+
+  if(hh === 0){
+      hh = 12;
+  }
+  if(hh > 12){
+      hh = hh - 12;
+      session = "PM";
+   }
+
+   hh = (hh < 10) ? "0" + hh : hh;
+   mm = (mm < 10) ? "0" + mm : mm;
+   ss = (ss < 10) ? "0" + ss : ss;
+    
+   let time = hh + ":" + mm + ":" + ss + " " + session;
+
+  document.getElementById("clock").innerText = time; 
+  let t = setTimeout(function(){ currentTime() }, 1000);
+};
+
+currentTime();
+
+var startTime;
+
+function startTimer() {
+  startTime = 0;
+};
+
+startTimer();
+
+function startProcess() {
+  let startingTime = new Date();
+
+  document.getElementById("sttime").innerText = startingTime; 
+};
+
+startProcess();
+
+function ElapsedTime() {
+  startTime = startTime + 1;
+
+  var seconds = Math.round(startTime % 60);
+
+  timeDiff = Math.floor(startTime / 60);
+
+  var minutes = Math.round(timeDiff % 60);
+
+  timeDiff = Math.floor(timeDiff / 60);
+
+  var hours = Math.round(timeDiff % 24);
+
+  let timenow = hours + ":" + minutes + ":" + seconds
+
+  document.getElementById("timer").innerText = timenow;
+  //console.log(startTime + " seconds"); 
+  let tt = setTimeout(function(){ ElapsedTime() }, 1000);
+};
+
+ElapsedTime();
+
+</script>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+</style>
+
+<h3>Job handler</h3>
+<br>
+<table>
+  <tr>
+    <td><b>Starting date</b></td>
+    <td><div id = "sttime" onload="startProcess()">0:0:0</div></td>
+  </tr>
+  <tr>
+    <td><b>Current time</b></td>
+    <td><div id = "clock" onload="currentTime()">0:0:0</div></td>
+  </tr>
+  <tr>
+    <td><b>Elapsed time</b></td>
+    <td><div id = "timer" onload="ElapsedTime()">0:0:0</div></td>
+  </tr>
+  <tr>
+    <td><b>Current status</b></td>
+    <td><div id = "jobstat">Submitting...</id></td>
+  </tr>
+</table>
+
+<div id = "start" onload="startTimer()"></div>
+<br>
+<h5><b>Note:</b> Optimization time will depend on server load and optimization algorithms with a maximum estimated time of four minutes per kb. Please keep this window open while optimization takes place.</h5>
+<br>
+<br>
