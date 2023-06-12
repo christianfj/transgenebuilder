@@ -1,0 +1,31 @@
+<head>
+    <title> <TMPL_VAR NAME="TITLE"> </title>
+    <link rel="stylesheet" href="/html/styles.css" type="text/css" media="screen"/>
+</head>
+
+<style>
+    body{
+        text-align: center;
+    }
+    p{
+        width:      70%;
+        word-break: break-all;
+    }
+</style>
+
+<body>
+    <h2> <TMPL_VAR NAME="TITLE"> </h2>
+    <TMPL_IF NAME="DNA_INPUT">
+        <h3> Input Sequence Score = <TMPL_VAR NAME="INPUT_SEQ_SCORE"> </h3>
+        <h3> Input Lowest Word Score = <TMPL_VAR NAME="INPUT_LOWEST_SCORE"> ( <TMPL_VAR NAME="INPUT_N_W_LOWEST_SCORE"> words) </h3>
+    </TMPL_IF>
+    <h3> Optimized Sequence Score = <TMPL_VAR NAME="RESULT_SEQ_SCORE"> </h3>
+    <h3> Optimized Sequence Lowest Word Score = <TMPL_VAR NAME="RESULT_LOWEST_SCORE"> ( <TMPL_VAR NAME="RESULT_N_W_LOWEST_SCORE"> words) </h3>
+    <h3> Optimized Sequence: </h3>
+    <TMPL_IF NAME="INTRONS">
+        <p> <TMPL_VAR NAME="OPT_SEQ_INTRONS"> </p>
+    <TMPL_ELSE>
+        <p> <TMPL_VAR NAME="OPT_SEQ"> </p>
+    </TMPL_IF>
+        
+</body>

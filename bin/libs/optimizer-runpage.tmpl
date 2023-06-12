@@ -1,0 +1,98 @@
+<head>
+    <title> <TMPL_VAR NAME="TITLE"> </title>
+    <link rel="stylesheet" href="/html/styles.css" type="text/css" media="screen"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function run_optimizer() {
+            
+            // Display warning if necessary
+            var warntxt = '<TMPL_VAR NAME="WARNING">';
+            if (warntxt.length > 0) {
+                $("#warning").text(warntxt);
+            } else {
+                $("#warning").hide();
+            }
+            
+            // Set up for optimiziation
+            var input = {
+                name: '<TMPL_VAR NAME="SEQ_NAME">',
+                DNAseq: '<TMPL_VAR NAME="DNA_SEQ">',
+                AAseq: '<TMPL_VAR NAME="AA_SEQ">',
+                seqtype: '<TMPL_VAR NAME="SEQ_TYPE">',
+                add_introns: '<TMPL_VAR NAME="INTRONS">'                
+            }
+            var startTime = performance.now();
+            
+            //This AJAX call kicks off the calculation
+            $.ajax({
+                type: "POST",
+                url: "./libs/optimize-start.pl",
+                data: { data: JSON.stringify(input) },
+                timeout: 3600000,
+                dataType: "html",
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                    if (errorThrown == "timeout") {
+                        $("#stuff").html( "<h2> Timeout error </h2>" + 
+                                          "<p> Your request took too long to process.  Please try again. <br/>" +
+                                          "If you continue to experience this error, contact daniel.dickinson@austin.utexas.edu for help. </p>");
+                    } else {
+                        $("#stuff").html( "<h2> Program error </h2>" + 
+                                          "<p>" + errorThrown + "</p>");
+                    }
+                }, 
+                success: function( jobID ) {
+                    $("#response").text( "Job ID: " + jobID );
+                    
+                    // setInterval is a weird JS way of running a loop every few seconds
+                    var intervalHandle = setInterval( function() { // Code below is the loop body
+                        
+                        //This AJAX call checks to see if the process is still running
+                        $.ajax({
+                            type: "POST",
+                            url: "./libs/optimize-start.pl",
+                            data: { rm: "optimizer_status", id: jobID },
+                            dataType: "json",
+                            error: function (jqXHR1, textStatus1, errorThrown1) { // Something when wrong checking status
+                                $("#stuff").html( "<h2> Program error </h2>" + 
+                                                    "<p> Could not get status of job. </p>" +
+                                                    "<p>" + textStatus1 + ": " + errorThrown1 + "</p>" + 
+                                                    "<p> Contact daniel.dickinson@austin.utexas.edu for help </p>" );
+                                clearInterval(intervalHandle);
+                            },
+                            success: function( results ) { 
+                                if ( results.status == "working" ) {
+                                    var currentTime = performance.now();
+                                    var elapsedTime = Math.round( (currentTime - startTime) / 1000 );
+                                    $("#time").text( "Elapsed time since submission: " + elapsedTime + " seconds" );
+                                    $("#status").text( "Current status of job: " + results.message );
+                                } else if ( results.status == "complete" ) {
+                                    $("#stuff").html( results.htmlOut );
+                                    clearInterval(intervalHandle);
+                                } else {
+                                    $("#stuff").html( "<h2> Program error </h2>" +
+                                                     "<p> Germline optimizer failed to return results </p>");
+                                    clearInterval(intervalHandle);
+                                }
+                            }
+                        });
+                        
+                    }, 15000); // Number here is the frequency with which the event runs (check status every 15s)
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id='stuff'>
+        <div style=text-align:center>
+            <h2> Waiting for results... </h2>
+            <p id='warning' style=color:red> Here's my warning text</p>
+            <p> Your results will appear here when they are ready </p>
+            <p id=status>  </p>
+            <p id=time> Elapsed time since submission: 0 seconds </p>
+            <img src="/html/roller.gif" alt="Roller" style="width:150px;height:150px">
+        </div>
+    </div>
+</body>
