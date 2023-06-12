@@ -4,6 +4,8 @@ Archive date: 12 June 2023
 
 You can access the latest verison on: https://wormbuilder.org/transgenebuilder/
 
+# Note
+- Due to file size limitation on Github, please download the codon scoring data from wormbuilder.org/GLODB and paste the file inside the /bin directory
 
 # License
 This repository and its content is under the MIT License
